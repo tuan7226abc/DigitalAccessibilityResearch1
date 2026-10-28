@@ -1,0 +1,60 @@
+﻿@model DigitalAccessibilityResearch1.Models.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Create your account";
+}
+
+<section class="account-section">
+    <div class="account-card">
+        <div class="account-heading">
+            <span class="brand-icon account-logo" aria-hidden="true">A</span>
+            <span class="section-kicker">JOIN ACCESSLEARN</span>
+            <h1>Create your account</h1>
+            <p>Start exploring a more accessible learning experience.</p>
+        </div>
+
+        <form asp-controller="Account" asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert"></div>
+
+            <div class="mb-3">
+                <label asp-for="FullName" class="form-label"></label>
+                <input asp-for="FullName" class="form-control account-input"
+                       autocomplete="name" placeholder="Enter your full name" />
+                <span asp-validation-for="FullName" class="field-error"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control account-input"
+                       autocomplete="email" placeholder="you@example.com" />
+                <span asp-validation-for="Email" class="field-error"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control account-input"
+                       autocomplete="new-password" placeholder="At least 8 characters" />
+                <span asp-validation-for="Password" class="field-error"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="ConfirmPassword" class="form-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control account-input"
+                       autocomplete="new-password" placeholder="Enter your password again" />
+                <span asp-validation-for="ConfirmPassword" class="field-error"></span>
+            </div>
+
+            <button type="submit" class="btn btn-brand w-100 account-submit">
+                Create account
+            </button>
+
+            <p class="account-switch">
+                Already have an account?
+                <a asp-controller="Account" asp-action="Login">Sign in</a>
+            </p>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

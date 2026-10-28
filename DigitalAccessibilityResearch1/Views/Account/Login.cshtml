@@ -1,0 +1,53 @@
+﻿@model DigitalAccessibilityResearch1.Models.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Sign in";
+}
+
+<section class="account-section">
+    <div class="account-card">
+        <div class="account-heading">
+            <span class="brand-icon account-logo" aria-hidden="true">A</span>
+            <span class="section-kicker">WELCOME BACK</span>
+            <h1>Sign in to AccessLearn</h1>
+            <p>Continue your accessible learning journey.</p>
+        </div>
+
+        <form asp-controller="Account" asp-action="Login"
+              asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert"></div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control account-input"
+                       autocomplete="username" placeholder="you@example.com" />
+                <span asp-validation-for="Email" class="field-error"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control account-input"
+                       autocomplete="current-password" placeholder="Enter your password" />
+                <span asp-validation-for="Password" class="field-error"></span>
+            </div>
+
+            <div class="form-check mb-4">
+                <input asp-for="RememberMe" class="form-check-input" />
+                <label asp-for="RememberMe" class="form-check-label"></label>
+            </div>
+
+            <button type="submit" class="btn btn-brand w-100 account-submit">
+                Sign in
+            </button>
+
+            <p class="account-switch">
+                New to AccessLearn?
+                <a asp-controller="Account" asp-action="Register">Create an account</a>
+            </p>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

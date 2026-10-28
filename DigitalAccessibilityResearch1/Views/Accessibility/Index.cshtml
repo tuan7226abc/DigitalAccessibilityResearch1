@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "Accessibility Learning Centre";
+}
+
+<section class="access-page">
+    <div class="access-page-header">
+        <span class="section-kicker">ACCESSIBLE LEARNING</span>
+        <h1>Accessibility Learning Centre</h1>
+        <p>
+            Explore accessible learning content and practise common
+            academic tasks using different ways of navigating a website.
+        </p>
+    </div>
+
+    <div class="access-page-grid">
+        <section class="access-content-card"
+                 aria-labelledby="lesson-heading">
+            <span class="access-tag">LEARNING MODULE 01</span>
+
+            <h2 id="lesson-heading">Understanding Digital Accessibility</h2>
+
+            <p>
+                Digital accessibility helps people with different abilities
+                access and use digital content, websites and learning tools.
+            </p>
+
+            <h3>Four important principles</h3>
+
+            <ul class="access-principles">
+                <li>
+                    <strong>Perceivable:</strong>
+                    Information should be available in ways users can perceive.
+                </li>
+                <li>
+                    <strong>Operable:</strong>
+                    Users should be able to navigate and interact with controls.
+                </li>
+                <li>
+                    <strong>Understandable:</strong>
+                    Content and instructions should be clear and predictable.
+                </li>
+                <li>
+                    <strong>Robust:</strong>
+                    Content should work with different browsers and assistive
+                    technologies.
+                </li>
+            </ul>
+
+            <div class="access-info">
+                <strong>Learning objective</strong>
+                <p>
+                    Identify accessibility barriers that may prevent students
+                    from completing common learning tasks.
+                </p>
+            </div>
+        </section>
+
+        <section class="access-content-card task-card"
+                 aria-labelledby="task-heading">
+            <span class="access-tag">PRACTICE ACTIVITY</span>
+
+            <h2 id="task-heading">Your accessibility task</h2>
+
+            <p>
+                Try completing the following task without using a mouse.
+            </p>
+
+            <ol class="task-steps">
+                <li>Press Tab to move between interactive elements.</li>
+                <li>Use the visible focus indicator to identify your position.</li>
+                <li>Use Enter or Space to activate a button.</li>
+                <li>Use Shift + Tab to move to the previous element.</li>
+            </ol>
+
+            @if (TempData["TaskMessage"] is string message)
+            {
+                <div class="alert @(TempData["TaskSuccess"] is bool success && success
+                     ? "alert-success"
+                     : "alert-info")"
+                     role="status">
+                    @message
+                </div>
+            }
+
+            <div class="keyboard-demo">
+                <form asp-controller="Accessibility"
+                      asp-action="CheckAnswer"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <label for="SelectedAnswer">
+                        Practice question: Which key moves to the next element?
+                    </label>
+
+                    <select id="SelectedAnswer"
+                            name="SelectedAnswer"
+                            class="form-select"
+                            required>
+                        <option value="">Choose an answer</option>
+                        <option value="Tab">Tab</option>
+                        <option value="Escape">Escape</option>
+                        <option value="Shift">Shift only</option>
+                    </select>
+
+                    <button type="submit" class="btn btn-brand mt-3">
+                        Submit answer
+                    </button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <p class="access-disclaimer">
+        This activity is a learning demonstration. Its results are not
+        recorded as research data at this stage.
+    </p>
+</section>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const answer = document.getElementById("practice-answer");
+            const button = document.getElementById("check-answer");
+            const feedback = document.getElementById("answer-feedback");
+
+            button.addEventListener("click", function () {
+                if (!answer.value) {
+                    feedback.textContent = "Please select an answer first.";
+                    return;
+                }
+
+                if (answer.value === "tab") {
+                    feedback.textContent =
+                        "Correct! Tab moves focus to the next focusable element.";
+                } else {
+                    feedback.textContent =
+                        "Not quite. Try Tab to move to the next focusable element.";
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,157 @@
+﻿@model DigitalAccessibilityResearch1.Models.SurveyResponse
+
+@{
+    ViewData["Title"] = "Student Accessibility Survey";
+}
+
+<main class="container py-5">
+    <header class="mb-4">
+        <p class="text-primary fw-semibold">ACCESSLEARN RESEARCH</p>
+        <h1>Student Accessibility Survey</h1>
+        <p class="lead">
+            Share your experience using the AccessLearn learning platform.
+        </p>
+        <p>
+            Your feedback will help the research team understand usability,
+            readability, navigation and task completion.
+        </p>
+        <p class="text-secondary">
+            Please answer based on your actual experience.
+            Do not include names or other identifying information
+            in the optional comment.
+        </p>
+    </header>
+
+    @if (TempData["SurveyMessage"] is string message)
+    {
+        <div class="alert alert-success" role="status">
+            @message
+        </div>
+    }
+
+    <form asp-controller="Survey"
+          asp-action="Submit"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger mb-3"></div>
+
+        <p class="mb-4">
+            For each question, select a rating from 1 to 5,
+            where 1 means very difficult and 5 means very easy.
+        </p>
+
+        <fieldset class="mb-4">
+            <legend class="h5">1. How easy was the website to use?</legend>
+
+            <div class="d-flex flex-wrap gap-3">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="radio"
+                               asp-for="EaseOfUse"
+                               value="@i"
+                               id="@($"ease-{i}")"
+                               required />
+                        <label class="form-check-label"
+                               for="@($"ease-{i}")">@i</label>
+                    </div>
+                }
+            </div>
+            <span asp-validation-for="EaseOfUse"
+                  class="text-danger"></span>
+        </fieldset>
+
+        <fieldset class="mb-4">
+            <legend class="h5">2. How easy was it to read the content?</legend>
+
+            <div class="d-flex flex-wrap gap-3">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="radio"
+                               asp-for="Readability"
+                               value="@i"
+                               id="@($"read-{i}")"
+                               required />
+                        <label class="form-check-label"
+                               for="@($"read-{i}")">@i</label>
+                    </div>
+                }
+            </div>
+            <span asp-validation-for="Readability"
+                  class="text-danger"></span>
+        </fieldset>
+
+        <fieldset class="mb-4">
+            <legend class="h5">3. How easy was it to navigate the website?</legend>
+
+            <div class="d-flex flex-wrap gap-3">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="radio"
+                               asp-for="Navigation"
+                               value="@i"
+                               id="@($"navigation-{i}")"
+                               required />
+                        <label class="form-check-label"
+                               for="@($"navigation-{i}")">@i</label>
+                    </div>
+                }
+            </div>
+            <span asp-validation-for="Navigation"
+                  class="text-danger"></span>
+        </fieldset>
+
+        <fieldset class="mb-4">
+            <legend class="h5">4. How easy was it to complete the learning task?</legend>
+
+            <div class="d-flex flex-wrap gap-3">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="radio"
+                               asp-for="TaskCompletion"
+                               value="@i"
+                               id="@($"task-{i}")"
+                               required />
+                        <label class="form-check-label"
+                               for="@($"task-{i}")">@i</label>
+                    </div>
+                }
+            </div>
+            <span asp-validation-for="TaskCompletion"
+                  class="text-danger"></span>
+        </fieldset>
+
+        <div class="mb-4">
+            <label asp-for="Difficulties" class="form-label fw-semibold">
+                5. What difficulties did you encounter? (Optional)
+            </label>
+
+            <textarea asp-for="Difficulties"
+                      class="form-control"
+                      rows="4"
+                      maxlength="1000"
+                      placeholder="Describe any difficulties you encountered."></textarea>
+
+            <span asp-validation-for="Difficulties"
+                  class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Submit survey
+        </button>
+    </form>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,192 @@
+﻿@model DigitalAccessibilityResearch1.Models.Lesson
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<main class="container py-5">
+    <nav aria-label="Breadcrumb" class="mb-4">
+        <a asp-controller="Learning" asp-action="Index">
+            Learning Centre
+        </a>
+        <span aria-hidden="true"> / </span>
+        <span aria-current="page">@Model.Title</span>
+    </nav>
+
+    <article>
+        <header class="mb-4">
+            <p class="text-primary fw-semibold">@Model.Category</p>
+            <h1>@Model.Title</h1>
+            <p class="lead">@Model.Description</p>
+            <p class="text-secondary">
+                Estimated reading time: @Model.DurationMinutes minutes
+            </p>
+        </header>
+
+        <section class="card mb-4" aria-labelledby="content-heading">
+            <div class="card-body p-4">
+                <h2 id="content-heading" class="h4 mb-3">
+                    Lesson content
+                </h2>
+
+                <div style="white-space: pre-line; line-height: 1.8;">
+                    @Model.Content
+                </div>
+            </div>
+        </section>
+
+        <section class="card mb-4" aria-labelledby="objectives-heading">
+            <div class="card-body p-4">
+                <h2 id="objectives-heading" class="h4">
+                    Learning objectives
+                </h2>
+
+                <ul>
+                    @foreach (var objective in Model.LearningObjectives)
+                    {
+                        <li class="mb-2">@objective</li>
+                    }
+                </ul>
+            </div>
+        </section>
+
+        <section class="card mb-4" aria-labelledby="practice-heading">
+            <div class="card-body p-4">
+                <h2 id="practice-heading" class="h4">
+                    Practice question
+                </h2>
+
+                <p>@Model.Question</p>
+
+                @if (TempData["QuizMessage"] is string message)
+                {
+                    bool success = TempData["QuizSuccess"] is bool value && value;
+
+                    <div class="alert @(success ? "alert-success" : "alert-info")"
+                         role="status"
+                         aria-live="polite">
+                        @message
+                    </div>
+                }
+
+                <form asp-controller="Learning"
+                      asp-action="SubmitAnswer"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" name="lessonId" value="@Model.Id" />
+
+                    <fieldset>
+                        <legend class="fs-6">Select one answer</legend>
+
+                        @for (int i = 0; i < Model.Options.Count; i++)
+                        {
+                            var option = Model.Options[i];
+                            var inputId = $"answer-{i}";
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input"
+                                       type="radio"
+                                       name="selectedAnswer"
+                                       id="@inputId"
+                                       value="@option"
+                                       required />
+
+                                <label class="form-check-label" for="@inputId">
+                                    @option
+                                </label>
+                            </div>
+                        }
+                    </fieldset>
+
+                    <button type="submit" class="btn btn-primary mt-2">
+                        Submit answer
+                    </button>
+                </form>
+
+                <details class="mt-3">
+                    <summary>Review the explanation</summary>
+                    <p class="mt-2">@Model.Explanation</p>
+                </details>
+
+                <div id="quiz-feedback"
+                     class="mt-4"
+                     role="status"
+                     aria-live="polite"
+                     tabindex="-1"
+                     hidden>
+                </div>
+
+                <button type="button"
+                        id="show-explanation"
+                        class="btn btn-outline-secondary mt-3"
+                        hidden>
+                    Show explanation
+                </button>
+
+                <p id="quiz-explanation" class="mt-3" hidden>
+                    @Model.Explanation
+                </p>
+            </div>
+        </section>
+
+        <a asp-controller="Learning"
+           asp-action="Index"
+           class="btn btn-outline-primary">
+            Back to all lessons
+        </a>
+    </article>
+</main>
+
+<script>
+    (() => {
+        const form = document.getElementById("lesson-quiz");
+        const feedback = document.getElementById("quiz-feedback");
+        const explanationButton =
+            document.getElementById("show-explanation");
+        const explanation =
+            document.getElementById("quiz-explanation");
+
+        const correctAnswer = @Html.Raw(
+                        System.Text.Json.JsonSerializer.Serialize(Model.CorrectAnswer)
+                        );
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const selected = form.querySelector(
+                'input[name="selectedAnswer"]:checked'
+            );
+
+            if (!selected) {
+                return;
+            }
+
+            const isCorrect = selected.value === correctAnswer;
+
+            feedback.hidden = false;
+            feedback.className = isCorrect
+                ? "alert alert-success mt-4"
+                : "alert alert-warning mt-4";
+
+            feedback.textContent = isCorrect
+                ? "Correct! You have answered the question successfully."
+                : "Not quite. Review your answer and try again.";
+
+            explanationButton.hidden = false;
+            explanation.hidden = true;
+            explanationButton.textContent = "Show explanation";
+
+            feedback.focus();
+        });
+
+        explanationButton.addEventListener("click", function () {
+            explanation.hidden = !explanation.hidden;
+
+            explanationButton.textContent = explanation.hidden
+                ? "Show explanation"
+                : "Hide explanation";
+        });
+    })();
+</script>

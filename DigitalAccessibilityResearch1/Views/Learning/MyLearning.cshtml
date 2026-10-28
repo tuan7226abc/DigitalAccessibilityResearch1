@@ -1,0 +1,123 @@
+﻿@model IEnumerable<DigitalAccessibilityResearch1.Models.TaskAttempt>
+
+@{
+    ViewData["Title"] = "My Learning";
+    var attempts = Model.ToList();
+    int totalAttempts = attempts.Count;
+    int correctAttempts = attempts.Count(x => x.IsCorrect);
+    int incorrectAttempts = totalAttempts - correctAttempts;
+    int accuracy = totalAttempts == 0
+        ? 0
+        : (int)Math.Round(correctAttempts * 100.0 / totalAttempts);
+}
+
+<main class="container py-5">
+    <header class="mb-4">
+        <p class="text-primary fw-semibold">ACCESSLEARN</p>
+        <h1>My Learning</h1>
+        <p class="lead">
+            Review your learning activity and practice results.
+        </p>
+    </header>
+
+    <section aria-labelledby="summary-heading" class="mb-5">
+        <h2 id="summary-heading" class="h4 mb-3">Learning summary</h2>
+
+        <div class="row g-3">
+            <div class="col-12 col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3 class="h6">Total attempts</h3>
+                        <p class="display-6 mb-0">@totalAttempts</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3 class="h6">Correct answers</h3>
+                        <p class="display-6 mb-0">@correctAttempts</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3 class="h6">Accuracy</h3>
+                        <p class="display-6 mb-0">@accuracy%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section aria-labelledby="history-heading">
+        <h2 id="history-heading" class="h4 mb-3">
+            Practice history
+        </h2>
+
+        @if (!attempts.Any())
+        {
+            <div class="alert alert-info" role="status">
+                You have not completed any practice questions yet.
+                Open the Learning Centre to get started.
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <caption>
+                        Your submitted practice answers, newest first.
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Lesson</th>
+                            <th scope="col">Your answer</th>
+                            <th scope="col">Result</th>
+                            <th scope="col">Completed (UTC)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var attempt in attempts)
+                        {
+                            <tr>
+                                <td>@attempt.TaskName</td>
+                                <td>@attempt.SelectedAnswer</td>
+                                <td>
+                                    @if (attempt.IsCorrect)
+                                    {
+                                        <span class="badge bg-success">
+                                            Correct
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">
+                                            Incorrect
+                                        </span>
+                                    }
+                                </td>
+                                <td>
+                                    <time datetime="@attempt.CompletedAtUtc.ToString("O")">
+                                        @attempt.CompletedAtUtc.ToString("yyyy-MM-dd HH:mm")
+                                    </time>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </section>
+
+    <div class="mt-4">
+        <a asp-controller="Learning"
+           asp-action="Index"
+           class="btn btn-primary">
+            Continue learning
+        </a>
+    </div>
+</main>

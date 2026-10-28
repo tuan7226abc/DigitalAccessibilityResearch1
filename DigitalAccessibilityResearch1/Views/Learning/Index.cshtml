@@ -1,0 +1,56 @@
+﻿@model IEnumerable<DigitalAccessibilityResearch1.Models.Lesson>
+
+@{
+    ViewData["Title"] = "Learning Centre";
+}
+
+<main class="container py-5">
+    <header class="mb-5">
+        <p class="text-primary fw-semibold">ACCESSLEARN</p>
+        <h1>Learning Centre</h1>
+        <p class="lead">
+            Explore digital accessibility and practise making online
+            learning more inclusive.
+        </p>
+    </header>
+
+    <section aria-labelledby="lesson-list-heading">
+        <h2 id="lesson-list-heading" class="h4 mb-4">
+            Available lessons
+        </h2>
+
+        <div class="row g-4">
+            @foreach (var lesson in Model)
+            {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <article class="card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column">
+                            <p class="text-primary small fw-semibold">
+                                @lesson.Category
+                            </p>
+
+                            <h3 class="h5 card-title">
+                                @lesson.Title
+                            </h3>
+
+                            <p class="card-text">
+                                @lesson.Description
+                            </p>
+
+                            <p class="text-secondary small">
+                                Estimated time: @lesson.DurationMinutes minutes
+                            </p>
+
+                            <a asp-controller="Learning"
+                               asp-action="Details"
+                               asp-route-id="@lesson.Id"
+                               class="btn btn-primary mt-auto">
+                                Start lesson
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            }
+        </div>
+    </section>
+</main>

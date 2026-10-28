@@ -1,8 +1,194 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Accessible Learning for Everyone";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hero-section">
+    <div class="hero-decoration hero-decoration-one" aria-hidden="true"></div>
+    <div class="hero-decoration hero-decoration-two" aria-hidden="true"></div>
+
+    <div class="container hero-grid">
+        <div class="hero-content">
+            <div class="eyebrow">
+                <span class="status-dot" aria-hidden="true"></span>
+                LEARNING WITHOUT BARRIERS
+            </div>
+
+            <h1>Learning should be accessible <span>to everyone.</span></h1>
+
+            <p class="hero-description">
+                Explore a more inclusive digital learning experience.
+                Discover accessibility tools and help us understand how
+                digital learning platforms work for university students.
+            </p>
+
+            <div class="hero-actions">
+                <a class="btn btn-brand btn-lg" href="#features">
+                    Explore accessibility <span aria-hidden="true">→</span>
+                </a>
+                <a class="btn btn-light-outline btn-lg" href="#research">
+                    About the research
+                </a>
+            </div>
+
+            <div class="hero-note">
+                <span class="note-check" aria-hidden="true">✓</span>
+                Designed with accessibility in mind
+            </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Illustration of an accessible online learning dashboard">
+            <div class="visual-glow" aria-hidden="true"></div>
+            <div class="learning-card">
+                <div class="learning-card-header">
+                    <div>
+                        <span class="mini-label">YOUR LEARNING SPACE</span>
+                        <h2>Learning made easier</h2>
+                    </div>
+                    <span class="round-icon" aria-hidden="true">✦</span>
+                </div>
+
+                <div class="progress-panel">
+                    <div class="progress-heading">
+                        <span>Learning progress</span>
+                        <strong>Explore at your pace</strong>
+                    </div>
+                    <div class="progress-track" role="img" aria-label="Illustrative progress bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <p>Clear content. Flexible access. Better learning.</p>
+                </div>
+
+                <div class="visual-feature">
+                    <span class="visual-feature-icon icon-purple" aria-hidden="true">Aa</span>
+                    <span><strong>Readable content</strong><small>Adjust text to suit you</small></span>
+                    <span class="feature-check" aria-hidden="true">✓</span>
+                </div>
+
+                <div class="visual-feature">
+                    <span class="visual-feature-icon icon-green" aria-hidden="true">◐</span>
+                    <span><strong>Clear contrast</strong><small>Improve visual clarity</small></span>
+                    <span class="feature-check" aria-hidden="true">✓</span>
+                </div>
+
+                <div class="visual-feature">
+                    <span class="visual-feature-icon icon-orange" aria-hidden="true">⌨</span>
+                    <span><strong>Keyboard access</strong><small>Navigate without a mouse</small></span>
+                    <span class="feature-check" aria-hidden="true">✓</span>
+                </div>
+
+                <div class="visual-caption">
+                    <span class="caption-star" aria-hidden="true">✦</span>
+                    Your learning experience matters.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="benefits-section" id="features">
+    <div class="container">
+        <div class="section-heading text-center">
+            <span class="section-kicker">ACCESS FOR EVERYONE</span>
+            <h2>A learning experience that works for you</h2>
+            <p>Explore tools and activities designed to help identify barriers in digital learning.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <article class="feature-card h-100">
+                    <div class="feature-icon feature-blue" aria-hidden="true">Aa</div>
+                    <h3>Readable by design</h3>
+                    <p>Adjust text size to make learning content easier to read and navigate.</p>
+                    <a href="#accessibility-tools" class="feature-link">Try display tools <span aria-hidden="true">→</span></a>
+                </article>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <article class="feature-card h-100">
+                    <div class="feature-icon feature-teal" aria-hidden="true">◐</div>
+                    <h3>Visual accessibility</h3>
+                    <p>Try a high-contrast display and explore how visual presentation affects access.</p>
+                    <a href="#accessibility-tools" class="feature-link">Explore contrast <span aria-hidden="true">→</span></a>
+                </article>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <article class="feature-card h-100">
+                    <div class="feature-icon feature-violet" aria-hidden="true">⌨</div>
+                    <h3>Keyboard navigation</h3>
+                    <p>Use the Tab, Shift + Tab and Enter keys to move through interactive elements.</p>
+                    <a href="#research" class="feature-link">Learn about testing <span aria-hidden="true">→</span></a>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tools-section" id="accessibility-tools">
+    <div class="container tools-grid">
+        <div>
+            <span class="section-kicker">MAKE IT YOURS</span>
+            <h2>Accessibility starts with small changes.</h2>
+            <p>
+                Use the display settings at the top of this page to change the text size
+                or turn on high contrast. Then explore the page using your keyboard.
+            </p>
+            <ul class="check-list">
+                <li><span aria-hidden="true">✓</span> Increase or decrease text size</li>
+                <li><span aria-hidden="true">✓</span> Toggle high-contrast mode</li>
+                <li><span aria-hidden="true">✓</span> Navigate links and buttons using Tab</li>
+            </ul>
+            <p class="small-note">These settings currently apply to this page view and reset when the page is refreshed.</p>
+        </div>
+
+        <div class="try-card">
+            <div class="try-card-top">
+                <span class="try-card-icon" aria-hidden="true">◎</span>
+                <span class="mini-label">ACCESSIBILITY CHECK</span>
+            </div>
+            <h3>Try a different way to browse</h3>
+            <p>Can you reach the navigation links and buttons without using your mouse?</p>
+            <div class="keyboard-keys" aria-label="Suggested keyboard keys">
+                <kbd>Tab</kbd><span>Navigate forward</span>
+                <kbd>Shift</kbd> + <kbd>Tab</kbd><span>Navigate backward</span>
+                <kbd>Enter</kbd><span>Activate a link</span>
+            </div>
+            <div class="try-card-footer">
+                <span class="live-dot" aria-hidden="true"></span>
+                Ready for you to explore
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="research-section" id="research">
+    <div class="container research-panel">
+        <div class="research-copy">
+            <span class="section-kicker">STUDENT-CENTRED RESEARCH</span>
+            <h2>Help us make digital learning more inclusive.</h2>
+            <p>
+                This project investigates how digital accessibility affects university
+                students' experiences and task performance when using digital learning platforms.
+                The aim is to identify barriers and develop evidence-based recommendations.
+            </p>
+            <p class="research-status">
+                Research activities will be made available as the survey and testing stages are prepared.
+            </p>
+        </div>
+
+        <div class="research-points">
+            <div class="research-point">
+                <span class="research-number">01</span>
+                <div><h3>Identify barriers</h3><p>Explore accessibility challenges on learning platforms.</p></div>
+            </div>
+            <div class="research-point">
+                <span class="research-number">02</span>
+                <div><h3>Evaluate common tasks</h3><p>Examine how students complete learning-related activities.</p></div>
+            </div>
+            <div class="research-point">
+                <span class="research-number">03</span>
+                <div><h3>Recommend improvements</h3><p>Use collected evidence to inform inclusive design.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
