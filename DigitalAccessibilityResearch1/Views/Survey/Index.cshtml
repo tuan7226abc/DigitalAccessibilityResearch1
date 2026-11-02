@@ -4,17 +4,22 @@
     ViewData["Title"] = "Student Accessibility Survey";
 }
 
-<main class="container py-5">
+<div class="container py-5">
+
     <header class="mb-4">
         <p class="text-primary fw-semibold">ACCESSLEARN RESEARCH</p>
+
         <h1>Student Accessibility Survey</h1>
+
         <p class="lead">
             Share your experience using the AccessLearn learning platform.
         </p>
+
         <p>
             Your feedback will help the research team understand usability,
             readability, navigation and task completion.
         </p>
+
         <p class="text-secondary">
             Please answer based on your actual experience.
             Do not include names or other identifying information
@@ -24,27 +29,39 @@
 
     @if (TempData["SurveyMessage"] is string message)
     {
-        <div class="alert alert-success" role="status">
+        <div class="alert alert-success" role="status" aria-live="polite">
             @message
         </div>
     }
 
     <form asp-controller="Survey"
           asp-action="Submit"
-          method="post">
+          method="post"
+          id="survey-form">
 
         @Html.AntiForgeryToken()
 
-        <div asp-validation-summary="ModelOnly"
-             class="text-danger mb-3"></div>
+        <div asp-validation-summary="All"
+             class="alert alert-danger mb-4"
+             role="alert"
+             aria-live="assertive"
+             tabindex="-1">
+        </div>
 
-        <p class="mb-4">
+        <p id="survey-instructions" class="mb-4">
             For each question, select a rating from 1 to 5,
             where 1 means very difficult and 5 means very easy.
+            All four rating questions are required.
         </p>
 
-        <fieldset class="mb-4">
-            <legend class="h5">1. How easy was the website to use?</legend>
+        <!-- Question 1 -->
+        <fieldset class="mb-4"
+                  aria-describedby="EaseOfUse-error">
+
+            <legend class="h5">
+                1. How easy was the website to use?
+                <span class="text-danger">(Required)</span>
+            </legend>
 
             <div class="d-flex flex-wrap gap-3">
                 @for (int i = 1; i <= 5; i++)
@@ -56,17 +73,30 @@
                                value="@i"
                                id="@($"ease-{i}")"
                                required />
+
                         <label class="form-check-label"
-                               for="@($"ease-{i}")">@i</label>
+                               for="@($"ease-{i}")">
+                            @i
+                        </label>
                     </div>
                 }
             </div>
+
             <span asp-validation-for="EaseOfUse"
-                  class="text-danger"></span>
+                  id="EaseOfUse-error"
+                  class="text-danger d-block mt-2"
+                  aria-live="polite">
+            </span>
         </fieldset>
 
-        <fieldset class="mb-4">
-            <legend class="h5">2. How easy was it to read the content?</legend>
+        <!-- Question 2 -->
+        <fieldset class="mb-4"
+                  aria-describedby="Readability-error">
+
+            <legend class="h5">
+                2. How easy was it to read the content?
+                <span class="text-danger">(Required)</span>
+            </legend>
 
             <div class="d-flex flex-wrap gap-3">
                 @for (int i = 1; i <= 5; i++)
@@ -78,17 +108,30 @@
                                value="@i"
                                id="@($"read-{i}")"
                                required />
+
                         <label class="form-check-label"
-                               for="@($"read-{i}")">@i</label>
+                               for="@($"read-{i}")">
+                            @i
+                        </label>
                     </div>
                 }
             </div>
+
             <span asp-validation-for="Readability"
-                  class="text-danger"></span>
+                  id="Readability-error"
+                  class="text-danger d-block mt-2"
+                  aria-live="polite">
+            </span>
         </fieldset>
 
-        <fieldset class="mb-4">
-            <legend class="h5">3. How easy was it to navigate the website?</legend>
+        <!-- Question 3 -->
+        <fieldset class="mb-4"
+                  aria-describedby="Navigation-error">
+
+            <legend class="h5">
+                3. How easy was it to navigate the website?
+                <span class="text-danger">(Required)</span>
+            </legend>
 
             <div class="d-flex flex-wrap gap-3">
                 @for (int i = 1; i <= 5; i++)
@@ -100,17 +143,30 @@
                                value="@i"
                                id="@($"navigation-{i}")"
                                required />
+
                         <label class="form-check-label"
-                               for="@($"navigation-{i}")">@i</label>
+                               for="@($"navigation-{i}")">
+                            @i
+                        </label>
                     </div>
                 }
             </div>
+
             <span asp-validation-for="Navigation"
-                  class="text-danger"></span>
+                  id="Navigation-error"
+                  class="text-danger d-block mt-2"
+                  aria-live="polite">
+            </span>
         </fieldset>
 
-        <fieldset class="mb-4">
-            <legend class="h5">4. How easy was it to complete the learning task?</legend>
+        <!-- Question 4 -->
+        <fieldset class="mb-4"
+                  aria-describedby="TaskCompletion-error">
+
+            <legend class="h5">
+                4. How easy was it to complete the learning task?
+                <span class="text-danger">(Required)</span>
+            </legend>
 
             <div class="d-flex flex-wrap gap-3">
                 @for (int i = 1; i <= 5; i++)
@@ -122,35 +178,54 @@
                                value="@i"
                                id="@($"task-{i}")"
                                required />
+
                         <label class="form-check-label"
-                               for="@($"task-{i}")">@i</label>
+                               for="@($"task-{i}")">
+                            @i
+                        </label>
                     </div>
                 }
             </div>
+
             <span asp-validation-for="TaskCompletion"
-                  class="text-danger"></span>
+                  id="TaskCompletion-error"
+                  class="text-danger d-block mt-2"
+                  aria-live="polite">
+            </span>
         </fieldset>
 
+        <!-- Optional comment -->
         <div class="mb-4">
-            <label asp-for="Difficulties" class="form-label fw-semibold">
+
+            <label asp-for="Difficulties"
+                   class="form-label fw-semibold">
                 5. What difficulties did you encounter? (Optional)
             </label>
+
+            <p id="difficulties-hint" class="text-secondary small">
+                Do not include your name or other personal information.
+                Maximum 1000 characters.
+            </p>
 
             <textarea asp-for="Difficulties"
                       class="form-control"
                       rows="4"
                       maxlength="1000"
+                      aria-describedby="difficulties-hint"
                       placeholder="Describe any difficulties you encountered."></textarea>
 
             <span asp-validation-for="Difficulties"
-                  class="text-danger"></span>
+                  class="text-danger"
+                  aria-live="polite">
+            </span>
         </div>
 
         <button type="submit" class="btn btn-primary">
             Submit survey
         </button>
+
     </form>
-</main>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

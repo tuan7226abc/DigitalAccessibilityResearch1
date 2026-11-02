@@ -23,23 +23,48 @@
             @foreach (var lesson in Model)
             {
                 <div class="col-12 col-md-6 col-lg-4">
-                    <article class="card h-100 shadow-sm">
+                    <article class="card h-100 shadow-sm lesson-card">
                         <div class="card-body d-flex flex-column">
-                            <p class="text-primary small fw-semibold">
+
+                            <p class="text-primary small fw-semibold lesson-category">
                                 @lesson.Category
                             </p>
 
-                            <h3 class="h5 card-title">
+                            <h3 class="h5 card-title lesson-title">
                                 @lesson.Title
                             </h3>
 
-                            <p class="card-text">
+                            <p class="card-text lesson-description">
                                 @lesson.Description
                             </p>
 
-                            <p class="text-secondary small">
-                                Estimated time: @lesson.DurationMinutes minutes
+                            <p class="text-secondary small lesson-duration">
+                                Estimated time:
+                                @lesson.DurationMinutes minutes
                             </p>
+
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <button type="button"
+                                        class="btn btn-outline-primary btn-sm speech-button"
+                                        data-speech-action="listen">
+                                    <span aria-hidden="true">▶</span>
+                                    Listen
+                                </button>
+
+                                <button type="button"
+                                        class="btn btn-outline-secondary btn-sm speech-button"
+                                        data-speech-action="pause"
+                                        disabled>
+                                    Pause
+                                </button>
+
+                                <button type="button"
+                                        class="btn btn-outline-secondary btn-sm speech-button"
+                                        data-speech-action="stop"
+                                        disabled>
+                                    Stop
+                                </button>
+                            </div>
 
                             <a asp-controller="Learning"
                                asp-action="Details"
@@ -47,10 +72,17 @@
                                class="btn btn-primary mt-auto">
                                 Start lesson
                             </a>
+
                         </div>
                     </article>
                 </div>
             }
         </div>
+
+        <p id="speech-status"
+           class="visually-hidden"
+           role="status"
+           aria-live="polite">
+        </p>
     </section>
 </main>

@@ -1314,3 +1314,193 @@ body.high-contrast .access-info {
         padding: 22px;
     }
 }
+
+/* =========================================
+   ACCESSIBILITY: DARK MODE
+========================================= */
+
+body.dark-mode:not(.high-contrast) {
+    --navy: #f1f5f9;
+    --blue: #8ab4ff;
+    --teal: #5eead4;
+    --muted: #cbd5e1;
+    --surface: #1e293b;
+    --page-bg: #0f172a;
+    background: #0f172a !important;
+    color: #f1f5f9 !important;
+}
+
+    body.dark-mode:not(.high-contrast) .site-header,
+    body.dark-mode:not(.high-contrast) .site-footer,
+    body.dark-mode:not(.high-contrast) .access-toolbar,
+    body.dark-mode:not(.high-contrast) .benefits-section,
+    body.dark-mode:not(.high-contrast) .research-section,
+    body.dark-mode:not(.high-contrast) .tools-section,
+    body.dark-mode:not(.high-contrast) .feature-card,
+    body.dark-mode:not(.high-contrast) .learning-card,
+    body.dark-mode:not(.high-contrast) .try-card,
+    body.dark-mode:not(.high-contrast) .account-card,
+    body.dark-mode:not(.high-contrast) .access-content-card,
+    body.dark-mode:not(.high-contrast) .progress-panel,
+    body.dark-mode:not(.high-contrast) .visual-feature,
+    body.dark-mode:not(.high-contrast) .research-point,
+    body.dark-mode:not(.high-contrast) .keyboard-demo {
+        background: #1e293b !important;
+        color: #f1f5f9 !important;
+        border-color: #475569 !important;
+    }
+
+    body.dark-mode:not(.high-contrast) .hero-section,
+    body.dark-mode:not(.high-contrast) .research-panel,
+    body.dark-mode:not(.high-contrast) .account-section {
+        background: #0f172a !important;
+        color: #f1f5f9 !important;
+    }
+
+    body.dark-mode:not(.high-contrast) h1,
+    body.dark-mode:not(.high-contrast) h2,
+    body.dark-mode:not(.high-contrast) h3,
+    body.dark-mode:not(.high-contrast) h4,
+    body.dark-mode:not(.high-contrast) p,
+    body.dark-mode:not(.high-contrast) span,
+    body.dark-mode:not(.high-contrast) label,
+    body.dark-mode:not(.high-contrast) li,
+    body.dark-mode:not(.high-contrast) strong,
+    body.dark-mode:not(.high-contrast) small,
+    body.dark-mode:not(.high-contrast) .nav-link,
+    body.dark-mode:not(.high-contrast) .brand {
+        color: #f1f5f9;
+    }
+
+    body.dark-mode:not(.high-contrast) .toolbar-label,
+    body.dark-mode:not(.high-contrast) .muted,
+    body.dark-mode:not(.high-contrast) .footer-description,
+    body.dark-mode:not(.high-contrast) .footer-copy {
+        color: #cbd5e1 !important;
+    }
+
+    body.dark-mode:not(.high-contrast) .tool-button {
+        background: #334155;
+        color: #ffffff;
+        border-color: #64748b;
+    }
+
+        body.dark-mode:not(.high-contrast) .tool-button[aria-pressed="true"] {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #60a5fa;
+        }
+
+    body.dark-mode:not(.high-contrast) input,
+    body.dark-mode:not(.high-contrast) textarea,
+    body.dark-mode:not(.high-contrast) select {
+        background: #0f172a;
+        color: #ffffff;
+        border-color: #64748b;
+    }
+
+        body.dark-mode:not(.high-contrast) input::placeholder,
+        body.dark-mode:not(.high-contrast) textarea::placeholder {
+            color: #cbd5e1;
+        }
+
+
+/* =========================================
+   ACCESSIBILITY: READING MODE
+========================================= */
+
+body.reading-mode {
+    font-family: Arial, sans-serif !important;
+    letter-spacing: 0.03em;
+}
+
+    body.reading-mode main {
+        line-height: 2 !important;
+    }
+
+        body.reading-mode main p,
+        body.reading-mode main li {
+            line-height: 2 !important;
+            letter-spacing: 0.03em;
+        }
+
+        body.reading-mode main p {
+            max-width: 80ch;
+        }
+
+        body.reading-mode .hero-content h1,
+        body.reading-mode main h1,
+        body.reading-mode main h2,
+        body.reading-mode main h3 {
+            letter-spacing: normal;
+            line-height: 1.5;
+        }
+
+
+/* =========================================
+   ACCESSIBILITY: LINE SPACING
+========================================= */
+
+body.large-line-spacing {
+    line-height: 2.2 !important;
+}
+
+    body.large-line-spacing p,
+    body.large-line-spacing li,
+    body.large-line-spacing label {
+        line-height: 2.2 !important;
+    }
+
+    body.large-line-spacing .form-control,
+    body.large-line-spacing .form-select {
+        line-height: 1.8;
+    }
+
+
+/* =========================================
+   ACCESSIBILITY: TOOLBAR RESPONSIVE
+========================================= */
+
+.access-toolbar .container {
+    row-gap: 10px;
+}
+
+.access-toolbar .tool-button {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+    .access-toolbar .tool-button:focus-visible {
+        outline: 3px solid #f59e0b;
+        outline-offset: 3px;
+    }
+
+@media (max-width: 575.98px) {
+    .access-toolbar .container {
+        justify-content: flex-start !important;
+    }
+
+    .access-toolbar .tool-button {
+        flex: 1 1 auto;
+    }
+
+    .toolbar-label {
+        text-align: left;
+    }
+}
+
+
+/* =========================================
+   ACCESSIBILITY: HIGH CONTRAST PRIORITY
+========================================= */
+
+body.high-contrast {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+    body.high-contrast .access-toolbar .tool-button[aria-pressed="true"] {
+        background: #ffeb3b !important;
+        color: #000000 !important;
+        border-color: #ffeb3b !important;
+    }

@@ -18,16 +18,19 @@ namespace DigitalAccessibilityResearch1.Controllers
             _context = context;
         }
 
+        // Display survey form
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            return View(new SurveyResponse());
         }
 
+        // Submit survey response
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Submit(SurveyResponse response)
         {
+            // Get the ID of the currently logged-in user
             string? userId =
                 User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -36,16 +39,23 @@ namespace DigitalAccessibilityResearch1.Controllers
                 return Challenge();
             }
 
+            // UserId is assigned by the server, not submitted by the form
+            ModelState.Remove(nameof(SurveyResponse.UserId));
+
+            // Check submitted data
             if (!ModelState.IsValid)
             {
                 return View("Index", response);
             }
 
+            // Prevent client-submitted values from being saved
             response.Id = 0;
             response.UserId = userId;
             response.SubmittedAtUtc = DateTime.UtcNow;
 
+            // Save valid response to SQLite
             _context.SurveyResponses.Add(response);
+
             await _context.SaveChangesAsync();
 
             TempData["SurveyMessage"] =
